@@ -14,7 +14,7 @@ export class FactsPageComponent implements OnInit {
 
   page: number = 1;
   facts: Fact[] = [];
-  fact: string = '';
+  fact: any;
   totalItems: number = 0;
 
   constructor(private service: FactsServiceService, private router: Router) { }
@@ -33,28 +33,36 @@ export class FactsPageComponent implements OnInit {
     this.router.navigate(['/details', factIndex]);
   }
 
-  deleteFact(factItem: Fact): void {
-    const factIndex = this.facts.indexOf(factItem);
-    if (factIndex >= 0) {
-      this.service.deleteFact(factIndex).subscribe(() => {
-        console.log(`Fact at index ${factIndex} deleted`);
-        this.facts.splice(factIndex, 1);
-      });
-    }
-  }
 
   search(): void {
     if (this.fact === '') {
-      this.getAllFacts();
+      this.ngOnInit();
     } else {
-      this.service.getAllFacts().subscribe((facts: Fact[]) => {
-        this.facts = facts.filter((fact) => fact.fact.toLowerCase().includes(this.fact.toLowerCase()));
-        this.totalItems = this.facts.length;
+      this.facts = this.facts.filter((res: { fact: string; }) => {
+        return res.fact.toLocaleLowerCase().match(this.fact.toLocaleLowerCase());
       });
     }
-
-
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ngOnInit(): void {
     this.getAllFacts();
   }
