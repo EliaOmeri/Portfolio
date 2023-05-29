@@ -1,15 +1,14 @@
-<div class="container mx-auto mt-4">
-    <div class="row">
-      <div class="col-md-4" *ngIf="fact">
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Fact</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Length: {{ fact.length }}</h6>
-            <p class="card-text">{{ fact.fact }}</p>
-            <button class="btn btn-danger" (click)="deleteFact()">Delete</button>
-          </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 d-flex align-items-center justify-content-center vh-100 mx-auto">
+      <div class="card" style="width: 28rem;">
+        <div class="card-body">
+          <h5 class="card-title">Fact</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Length: {{ fact.length }}</h6>
+          <p class="card-text">{{ fact.fact }}</p>
+          <button class="btn btn-danger" (click)="deleteFact()">Delete</button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

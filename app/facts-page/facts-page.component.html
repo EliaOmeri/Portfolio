@@ -1,9 +1,7 @@
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<!-- 
 <div class="container">
   <div class="row">
     <div class="col-4 navbar p-3 ps-0">
-      <input class="form-control" type="fact" name="fact" [(ngModel)]="fact" (ngModelChange)="search()"
+      <input class="form-control" type="text" name="fact" [(ngModel)]="fact" (ngModelChange)="search()"
         placeholder="Search fact">
     </div>
     <div class="col-lg-12">
@@ -19,54 +17,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let factItem of facts | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
-                <td>Fact {{ (page - 1) * 10 + i + 1 }}</td>
+              <tr
+                *ngFor="let factItem of facts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalItems }">
                 <td>{{ factItem.fact }}</td>
-                <td class="text-center">{{ factItem.length }}</td>
+                <td>{{ factItem.length }}</td>
                 <td>
                   <button class="btn btn-primary" (click)="navigateToDetails(factItem)">Details</button>
                 </td>
               </tr>
-              
-              
             </tbody>
           </table>
         </div>
-        <pagination-controls (pageChange)="page = $event" class="text-center"></pagination-controls>
-      </div>
-    </div>
-  </div>
-</div> -->
-<div class="container">
-  <div class="row">
-    <div class="col-4 navbar p-3 ps-0">
-      <input class="form-control" type="text" name="fact" [(ngModel)]="fact" (ngModelChange)="search()" placeholder="Search fact">
-    </div>
-    <div class="col-lg-12">
-      <div class="main-box clearfix">
-        <div class="table-responsive">
-          <table class="table facts">
-            <thead>
-              <tr>
-                <th><span>Fact</span></th>
-                <th><span>Description</span></th>
-                <th class="text-center"><span>Length</span></th>
-                <th>&nbsp;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let factItem of facts | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
-                <td>Fact {{ (page - 1) * 10 + i + 1 }}</td>
-                <td>{{ factItem.fact }}</td>
-                <td class="text-center">{{ factItem.length }}</td>
-                <td>
-                  <button class="btn btn-primary" (click)="navigateToDetails(i)">Details</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="d-flex justify-content-center">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
         </div>
-        <pagination-controls (pageChange)="page = $event" class="text-center"></pagination-controls>
       </div>
     </div>
   </div>

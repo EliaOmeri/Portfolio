@@ -8,31 +8,46 @@ import { Fact, FactsServiceService } from '../service/facts-service.service';
   styleUrls: ['./fact-details.component.css']
 })
 export class FactDetailsComponent implements OnInit {
+
   factIndex: number = -1;
-fact!:Fact;
+  fact!: Fact;
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: FactsServiceService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.factIndex = params['index'];
-      this.service.getFacts().subscribe(response => {
-        response.filter(fact => {
-          this.fact = response[this.factIndex];
-        })
-      })
+      console.log(this.factIndex);
+
+      this.service.getFacts(1).subscribe(response => {
+        console.log(response);
+        this.fact = response[this.factIndex];
+      });
+
+
     });
   }
 
+
   deleteFact(): void {
-    if (this.factIndex >= 0) {
-      this.service.deleteFact(this.factIndex).subscribe(() => {
-        console.log(`Fact at index ${this.factIndex} deleted`);
-        this.router.navigate(['/list']);
+    const index = Number(this.factIndex);
+    if (!isNaN(index) && index >= 0) {
+      this.service.deleteFact(index).subscribe(() => {
+        console.log(`Fact at index ${index} deleted`);
+        this.service.getAllFacts().subscribe(updatedFacts => {
+          this.service.facts = updatedFacts;
+          this.router.navigate(['/list']);
+        });
       });
     }
   }
+
+
+
+
 }
